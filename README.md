@@ -1,6 +1,6 @@
 # LLM Lean Proof Repair Experiment
 
-An empirical study evaluating how well Large Language Models can diagnose and repair buggy Lean 4 proofs.
+An empirical study evaluating how well Large Language Models can diagnose and repair buggy Lean 4 proofs, with a supplementary bonus on Lean-to-English translation.
 
 ## Overview
 
@@ -81,6 +81,31 @@ Each LLM received:
    - Misunderstanding of tactic argument patterns
    - Introducing unneeded imports or tactics
 
+---
+
+## Supplementary: Lean-to-English Translation
+
+In addition to bug repair, I also conducted a smaller experiment earlier, evaluating whether LLMs can **understand and translate Lean proofs to natural language**.
+
+**Prompt:** Given a Lean file, explain the theorems and describe what the file is proving and how.
+
+**Models Tested:** ChatGPT 5.1 and Gemini 3.0 Pro  
+**Files Evaluated:** Same 5 tutorial files as the main experiment
+
+### Key Findings
+
+| Aspect | ChatGPT 5.1 | Gemini 3.0 Pro |
+|--------|-------------|----------------|
+| **Approach** | Rigorous, math-heavy, detailed | Code-focused, brief |
+| **Success Rate** | 100% correct theorem identification | 100% correct theorem identification |
+| **Explanation Style** | Detailed proofs with mathematical context | Concise, practical explanations |
+
+**Both models successfully tackled all problems**, correctly identifying and explaining theorems covering real analysis (limits, bounds, infimums), algebraic manipulation, logical equivalences, quantifiers, and existential proofs.
+
+This suggests that current frontier models have strong capability in **understanding and translating foundational-level mathematical proofs** written in Lean.
+
+→ [Full Lean-to-English Report](lean-to-english/REPORT.md)
+
 ## Repository Structure
 
 ```
@@ -88,6 +113,9 @@ Each LLM received:
 │   └── buggy/              # Buggy Lean files used in experiments
 ├── docs/
 │   └── detailed_analysis.md  # Full analysis with per-bug breakdowns
+├── lean-to-english/        # Supplementary Lean-to-English translation experiment
+│   ├── REPORT.md           # Full methodology and theorem-by-theorem analysis
+│   └── lean-files/         # Clean Lean files (comments removed)
 ├── results/
 │   ├── summary.md          # Condensed findings
 │   └── figures/            # Generated visualizations
