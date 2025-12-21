@@ -1,5 +1,3 @@
-# **Gökdeniz** 
-
 
 
 I attached the buggy lean proof in the web interface and used the following prompt:
@@ -241,7 +239,7 @@ From [leanprover-community/tutorials4](https://github.com/leanprover-community/t
 
 - [00FirstProofs](https://chat.deepseek.com/share/2pa1e8a87fvsjsl4wq)
 - [01EqualityRewriting](https://chat.deepseek.com/share/i2infardsa1er7r2b5)
-- [02IffIfAnd](https://chat.deepseek.com/share/i2infardsa1er7r2b5)
+- [02IffIfAnd](https://chat.deepseek.com/share/zf5rxp571lr7s7k9c3)
 - [03ForallOr](https://chat.deepseek.com/share/5i04h1yz08ntj874s8)
 - [04Exists](https://chat.deepseek.com/share/xbzcdfgmzl3y720mfx)
 </details>
