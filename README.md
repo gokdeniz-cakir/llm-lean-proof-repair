@@ -115,7 +115,6 @@ This suggests that current frontier models have strong capability in **understan
 │   └── detailed_analysis.md  # Full analysis with per-bug breakdowns
 ├── lean-to-english/        # Supplementary Lean-to-English translation experiment
 │   ├── REPORT.md           # Full methodology and theorem-by-theorem analysis
-│   └── lean-files/         # Clean Lean files (comments removed)
 ├── results/
 │   ├── summary.md          # Condensed findings
 │   └── figures/            # Generated visualizations
