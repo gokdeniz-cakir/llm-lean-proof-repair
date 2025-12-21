@@ -110,13 +110,13 @@ This suggests that current frontier models have strong capability in **understan
 
 ```
 ├── data/
-│   └── buggy/              # Buggy Lean files used in experiments
-├── lean-to-english/        # Supplementary Lean-to-English translation experiment
-│   ├── REPORT.md           # Full methodology and theorem-by-theorem analysis
+│   └── faulty-proofs/       # Buggy Lean files used in experiments
+├── lean-to-english/         # Supplementary Lean-to-English translation experiment
+│   ├── REPORT.md            # Full methodology and theorem-by-theorem analysis
 ├── results/
-│   ├── summary.md          # Condensed findings
-│   └── detailed_analysis.md  # Full analysis with per-bug breakdowns
-│   └── figures/            # Generated visualizations
+│   ├── summary.md           # Condensed findings
+│   └── detailed_analysis.md # Full analysis with per-bug breakdowns
+│   └── figures/             # Generated visualizations
 
 ```
 
