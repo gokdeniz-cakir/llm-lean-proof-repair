@@ -1,0 +1,146 @@
+import Tutorials.TutoLib
+
+/-
+In this file, we'll learn about the ∀ quantifier, and the disjunction
+operator ∨ (logical OR).
+-/
+
+example (f g : ℝ → ℝ) : EvenFun f → EvenFun g → EvenFun (f + g) := by
+intro hf
+unfold EvenFun at hf
+intro hg
+unfold EvenFun at hg
+unfold EvenFun
+intro x
+calc
+(f + g) (-x) = f (-x) + g (-x) := rfl
+_ = f x + g (-x) := by rw [hf x]
+_ = f x + g x := by rw [hg x]
+_ = (f + g) x := rfl
+
+example (f g : ℝ → ℝ) : EvenFun f → EvenFun g → EvenFun (f + g) := by
+intro hf hg x
+calc
+(f + g) (-x) = f (-x) + g (-x) := rfl
+_ = f x + g x := by rw [hf, hg]
+
+/-
+Now let's practice.
+-/
+
+
+example (f g : ℝ → ℝ) : EvenFun f → EvenFun (g ∘ f) := by
+intro hf x
+unfold EvenFun at hf
+unfold EvenFun
+calc
+(g ∘ f) (-x) = g (f (-x)) := rfl
+_ = g (f x) := by rw [hf x]
+_ = (g ∘ f) x := rfl
+
+
+example (f g : ℝ → ℝ) : OddFun f → OddFun g → OddFun (g ∘ f) := by
+intro hf hg x
+unfold OddFun at hf hg
+unfold OddFun
+calc
+(g ∘ f) (-x) = g (f (-x)) := rfl
+_ = g (-f x) := by rw [hf x]
+_ = -g (f x) := by simpa using (hg (f x))
+_ = -(g ∘ f) x := rfl
+
+/-
+NonDecreasing / NonIncreasing
+-/
+
+example (f g : ℝ → ℝ) (hf : NonDecreasing f) (hg : NonDecreasing g) :
+NonDecreasing (g ∘ f) := by
+intro x₁ x₂ h
+have step₁ : f x₁ ≤ f x₂ := hf x₁ x₂ h
+exact hg (f x₁) (f x₂) step₁
+
+example (f g : ℝ → ℝ) (hf : NonDecreasing f) (hg : NonDecreasing g) :
+NonDecreasing (g ∘ f) := by
+intro x₁ x₂ h
+specialize hf x₁ x₂ h
+exact hg (f x₁) (f x₂) hf
+
+example (f g : ℝ → ℝ) (hf : NonDecreasing f) (hg : NonDecreasing g) :
+NonDecreasing (g ∘ f) := by
+intro x₁ x₂ h
+exact hg (f x₁) (f x₂) (hf x₁ x₂ h)
+
+example (f g : ℝ → ℝ) (hf : NonDecreasing f) (hg : NonDecreasing g) :
+NonDecreasing (g ∘ f) :=
+fun x₁ x₂ h ↦ hg (f x₁) (f x₂) (hf x₁ x₂ h)
+
+example (f g : ℝ → ℝ) (hf : NonDecreasing f) (hg : NonDecreasing g) :
+NonDecreasing (g ∘ f) := by
+intro x₁ x₂ h
+apply hg
+apply hf
+exact h
+
+
+example (f g : ℝ → ℝ) (hf : NonDecreasing f) (hg : NonIncreasing g) :
+NonIncreasing (g ∘ f) := by
+intro x₁ x₂ h
+apply hg
+exact hf x₁ x₂ h
+
+/-
+Disjunctions
+-/
+
+example (a b : ℝ) : a = a * b → a = 0 ∨ b = 1 := by
+intro hyp
+have H : a * (1 - b) = 0 := by
+calc
+a * (1 - b) = a - a * b := by ring
+_ = 0 := by linarith
+rw [mul_eq_zero] at H
+rcases H with Ha | Hb
+· left; exact Ha
+· right; linarith
+
+
+example (x y : ℝ) : x ^ 2 = y ^ 2 → x = y ∨ x = -y := by
+intro hyp
+have H : (x - y) * (x + y) = 0 := by
+calc
+(x - y) * (x + y) = x ^ 2 - y ^ 2 := by ring
+_ = 0 := by
+have := congrArg (fun t => t - y ^ 2) hyp
+simpa [sub_eq_add_neg] using this
+rw [mul_eq_zero] at H
+rcases H with h1 | h2
+· left; linarith
+· right; linarith
+
+
+example (f : ℝ → ℝ) :
+NonDecreasing f ↔ ∀ x y, x < y → f x ≤ f y := by
+constructor
+· intro hf x y hxy
+apply hf
+linarith
+· intro hf x y hxy
+have clef : x = y ∨ x < y := eq_or_lt_of_le hxy
+rcases clef with rfl | hlt
+· simp
+· exact hf x y hlt
+
+
+example (f : ℝ → ℝ) (h : NonDecreasing f) (h' : ∀ x, f (f x) = x) :
+∀ x, f x = x := by
+intro x
+have hff : f (f x) = x := h' x
+cases le_total (f x) x with
+| inl hx =>
+have f1 : f (f x) ≤ f x := h (f x) x hx
+have : x ≤ f x := by simpa [hff] using f1
+exact le_antisymm hx this
+| inr hx =>
+have f1 : f x ≤ f (f x) := h x (f x) hx
+have : f x ≤ x := by simpa [hff] using f1
+exact le_antisymm this hx
