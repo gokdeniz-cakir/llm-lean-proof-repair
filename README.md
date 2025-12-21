@@ -118,8 +118,7 @@ This suggests that current frontier models have strong capability in **understan
 ├── results/
 │   ├── summary.md          # Condensed findings
 │   └── figures/            # Generated visualizations
-└── scripts/
-    └── generate_charts.py  # Visualization generation script
+
 ```
 
 ## Source Materials
