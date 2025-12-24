@@ -1,6 +1,6 @@
 # LLM Lean Proof Repair Experiment
 
-An empirical study evaluating how well Large Language Models can diagnose and repair buggy Lean 4 proofs, with a supplementary bonus on Lean-to-English translation.
+An empirical study evaluating how well Large Language Models can diagnose and repair faulty Lean 4 proofs, with a supplementary bonus on Lean-to-English translation.
 
 ## Overview
 
