@@ -45,6 +45,8 @@ Each LLM received:
 
 ## Results
 
+→ [For detailed analysis](results/detailed_analysis.md)
+
 ### Compilation Success Rate
 
 ![Compilation Results](results/figures/compilation_success.png)
